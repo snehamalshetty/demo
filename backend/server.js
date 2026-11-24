@@ -23,6 +23,9 @@ app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 app.use("/uploads", express.static(path.resolve("uploads"), { dotfiles: "deny", index: false }));
 app.use("/api", rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: "draft-7", legacyHeaders: false }));
 app.get("/api/health", (req, res) => res.json({ status: "ok", database: mongoose.connection.readyState === 1 ? "connected" : "disconnected" }));
+app.get("/", (req, res) => {
+    res.send("Welcome to Campus Connect Backend!");
+});
 app.use("/api", api);
 app.use(notFound);
 app.use(errorHandler);
